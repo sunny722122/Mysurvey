@@ -1,0 +1,124 @@
+{% extends "brandsurvey/layout.html" %}
+
+{% block title %}BrandSurvey{% endblock %}
+
+{% block main %}
+<script type='text/javascript'
+src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Personal Brand Experience - Strengths Assessment for Xiong (Sunny) Wang</h3>
+            </div>
+            <form> 
+                <div><input type="text" name="a" value="1" id="a"></div>
+   
+                <ul class="list-group">
+                    {% for question in questions %}
+                    
+                    <li class="list-group-item">
+                        <strong>{{ question.question }}</strong>
+                        <ul class="list-group">
+                            {% for option in options%}
+                            <li class="list-group-item">
+                                <input type="radio" id="option" name="option{{question.id}}" value="{{option.check}}">
+                                <label for="option{{question.id}}" name="{{option.option}}">{{option.option}}</label><br>
+                            </li>
+                            {% endfor %}
+                        </ul>     
+                    </li>
+                    {% endfor %}
+                </ul>
+                <p style="text-align:center; font-size:20px;">
+                    <input id="submitbtn" type="submit" value="submit">
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+    alert("aa");
+    //$(function(){
+    
+    
+    $("#submitbtn").click( function(event) {
+        
+        var x=$('surveyfrm').serialize();
+        console.log( $('surveyfrm').serializeArray() );
+        alert("cc");
+        var text="";
+        
+        /*
+        for(int i=0;i<x.length;i++)
+        {
+            text+=x.elements[i].value+"<br><br>";
+        }
+        int j=0;
+        for(result in results)
+        {
+            if(j<x.length)
+            {
+                result=x.elements[j].value
+                j++;
+            }
+        }
+        alert(text);*/
+    });
+
+
+    $('form').submit(function(e)
+    {
+        console.log( $('form').serializeArray() );
+        e.preventDefault();   
+        alert("bb");
+    });
+    //});
+
+    });
+    
+    
+    
+</script>
+<script>
+    alert("aa");
+    //function sendemail()
+    
+    $(function() {
+    $('#surveyfrm').submit(function(e))
+    {
+        var x=document.getElementbyId("surveyfrm");
+        var text="";
+        for(int i=0;i<x.length;i++)
+        {
+            text+=x.elements[i].value+"<br><br>";
+        }
+        int j=0;
+        for(result in results)
+        {
+            if(j<x.length)
+            {
+                result=x.elements[j].value
+                j++;
+            }
+        }
+        alert(text);
+        Email.send({
+        Host: "smtp.gmail.com",
+        Username : "wsunny.722@gmail.com",
+        Password : "yanYi@0508#",
+        To : 'wsunny.722@gmail.com',
+        From : "wsunny.722@gmail.com",
+        Subject : "BrandSurvey Result",
+        Body : text,
+        }).then(
+            message => alert("mail sent successfully")
+        );
+        window.location.replace("{% url 'thank' %}");
+    }
+    });
+<script>
+{% endblock %}
