@@ -5,18 +5,23 @@ from .models import *
 
 # Create your views here.
 def index(request):
-    
-    return render(request,"brandsurvey/index.html",({
-        "questions":Question.objects.all(),
-        "options":Option.objects.all(),
-        "results":Result.objects.all(),
-    }))
+    if request.method =='POST':
+        results=Result(result=request.POST.get('ret'))
+        results.save()
+        
+        return HttpResponseRedirect('thank')
+    else:
+        return render(request,"brandsurvey/index.html",({
+            "questions":Question.objects.all(),
+            "options":Option.objects.all(),
+            "results":Result.objects.all(),
+        }))
 
 def thank(request):
-    """ if request.method =='POST':
-        results=Result.objects.all()
-        results.result.add(request.POST.get())
+    if request.method =='POST':
+        results=Result(result=request.POST.get('ret'))
+        results.save()
         
-        #return HttpResponseRedirect('thank')
-    else: """
-    return render(request,"brandsurvey/thank.html")
+        return HttpResponseRedirect('thank')
+    else: 
+        return render(request,"brandsurvey/thank.html")

@@ -50,119 +50,37 @@ src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
     </div>
 </div>
 <script>
-
     window.addEventListener('DOMContentLoaded', (event) => {
-    //alert("aa");
-    //$(function(){
-    
-    /*
-    $("#submitbtn").click( function(event) {
-        
-        var x=$("#surveyfrm").serialize();
-        console.log( $('#surveyfrm').serializeArray() );
-        alert(x);
-        var text="";
-        
-        /*
-        for(int i=0;i<x.length;i++)
-        {
-            text+=x.elements[i].value+"<br><br>";
-        }
-        int j=0;
-        for(result in results)
-        {
-            if(j<x.length)
-            {
-                result=x.elements[j].value
-                j++;
-            }
-        }
-        alert(text);
-    });
+        var form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+            var data = new FormData(form);
+            var output = "";
+            for (const entry of data) {
+                output = output + entry[0] + "=" + entry[1] + "\r\n";
+            };
+            console.log(output) ;
+            var url="{% url 'thank'  %}";
+            $.ajax({
+                url: '{% url "thank"  %}',
+                type: "POST",
+                data: {
+                    ret: output,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                success : function(json) {
+                    console.log("Successfully sent the URL to Django");
+                },
+                error : function(xhr,errmsg,err) {
+                    console.log("Could not send URL to Django. Error: " + xhr.status + ": " + errmsg);
+                }
+            });
 
+            
+            window.location.replace(url);
 
-    $('form').submit(function(e)
-    {
-        console.log( $('form').serializeArray() );
-        var x=$('form').serializeArray();
-        alert(x);
-        e.preventDefault();   
-        
-    });*/
+            event.preventDefault();
 
-
-    var form = document.querySelector("form");
-/*
-
-form.addEventListener("submit", function(event) {
-  var data = new FormData(form);
-  var output = "";
-  for (const entry of data) {
-    output = output + entry[0] + "=" + entry[1] + "\r\n";
-  };
-  console.log(output) ;
-    /*Email.send({
-        Host: "smtp.gmail.com",
-        Username : "wsunny.722@gmail.com",
-        Password : "yanYi@0508#",
-        To : 'sunny.722@hotmail.com',
-        From : "wsunny.722@gmail.com",
-        Subject : "BrandSurvey Result",
-        Body : output,
-        }).then(
-            //message => 
-            alert("mail sent successfully")
-        );
-    var url="{% url 'thank' ret %}".replace('ret',output);
-    window.location.replace(url);
-
-  event.preventDefault();
-}, false);*/
-    //});
-
-
-    });
-    
-    
-    
+        });
+    })
 </script>
-<script>
-/*
-    alert("aa");
-    //function sendemail()
-    
-    $(function() {
-    $('#surveyfrm').submit(function(e))
-    {
-        var x=document.getElementbyId("surveyfrm");
-        var text="";
-        for(int i=0;i<x.length;i++)
-        {
-            text+=x.elements[i].value+"<br><br>";
-        }
-        int j=0;
-        for(result in results)
-        {
-            if(j<x.length)
-            {
-                result=x.elements[j].value
-                j++;
-            }
-        }
-        alert(text);
-        Email.send({
-        Host: "smtp.gmail.com",
-        Username : "wsunny.722@gmail.com",
-        Password : "yanYi@0508#",
-        To : 'wsunny.722@gmail.com',
-        From : "wsunny.722@gmail.com",
-        Subject : "BrandSurvey Result",
-        Body : text,
-        }).then(
-            message => alert("mail sent successfully")
-        );
-        window.location.replace("{% url 'thank' %}");
-    }
-    });*/
-<script>
 {% endblock %}
