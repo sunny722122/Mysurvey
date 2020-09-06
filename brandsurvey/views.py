@@ -5,6 +5,7 @@ from .models import *
 
 # Create your views here.
 def index(request):
+    
     return render(request,"brandsurvey/index.html",({
         "questions":Question.objects.all(),
         "options":Option.objects.all(),
@@ -12,4 +13,10 @@ def index(request):
     }))
 
 def thank(request):
+    """ if request.method =='POST':
+        results=Result.objects.all()
+        results.result.add(request.POST.get())
+        
+        #return HttpResponseRedirect('thank')
+    else: """
     return render(request,"brandsurvey/thank.html")

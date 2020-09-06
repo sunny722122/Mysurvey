@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Testing
+        </title>
+        <meta charset="utf-8">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script type='text/javascript'
+src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+    </head>
+    <body>
+        <form action="" method='POST'> 
+  <p>Please select your preferred contact method:</p>
+  <div>
+    <input type="radio" id="contactChoice1"
+           name="contact" value="email">
+    <label for="contactChoice1">Email</label>
+    <input type="radio" id="contactChoice2"
+           name="contact" value="phone">
+    <label for="contactChoice2">Phone</label>
+    <input type="radio" id="contactChoice3"
+           name="contact" value="mail">
+    <label for="contactChoice3">Mail</label>
+  </div>
+  <div>
+    <button id="submitbtn" type="submit">Submit</button>
+  </div>
+</form>
+    <script>
+        
+window.addEventListener('DOMContentLoaded', (event) => {
+   var form = document.querySelector("form");
+
+
+form.addEventListener("submit", function(event) {
+  var data = new FormData(form);
+  var output = "";
+  for (const entry of data) {
+    output = output + entry[0] + "=" + entry[1] + "\r";
+  };
+  console.log(output) ;
+  event.preventDefault();
+}, false);
+})
+    </script>
+    </body>
+</html>

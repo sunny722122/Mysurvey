@@ -3,7 +3,7 @@ from .models import *
 
 # Register your models here.
 class QuestionAdmin(admin.ModelAdmin):
-    list_display=("id","question")
+    list_display=("id","ques")
 
 class OptionAdmin(admin.ModelAdmin):
     list_display=("id","option","check")
@@ -12,3 +12,4 @@ class OptionAdmin(admin.ModelAdmin):
 admin.site.register(Question,QuestionAdmin)
 admin.site.register(Option,OptionAdmin)
 admin.site.register(Result)
+#admin.site.register(Survey)
