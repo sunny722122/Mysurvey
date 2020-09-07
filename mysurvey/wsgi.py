@@ -10,7 +10,9 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysurvey.settings')
+if os.environ.get('DJANGO_ENV') == 'production':
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysurvey.production')
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysurvey.settings')
 
 application = get_wsgi_application()

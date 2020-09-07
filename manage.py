@@ -5,7 +5,11 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysurvey.settings')
+    if os.environ.get('DJANGO_ENV') == 'production':
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysurvey.production')
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysurvey.settings') 
+    #os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysurvey.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
